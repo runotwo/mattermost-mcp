@@ -1,0 +1,36 @@
+{
+  "name": "@anthropic/mattermost-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Mattermost — channels, messages, users, DMs, files, reactions",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mattermost-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    ".env.example"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "start": "node dist/index.js",
+    "test": "node dist/test.js"
+  },
+  "keywords": [
+    "mcp",
+    "mattermost",
+    "model-context-protocol",
+    "claude",
+    "ai"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0"
+  }
+}
