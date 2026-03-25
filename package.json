@@ -1,5 +1,5 @@
 {
-  "name": "@anthropic/mattermost-mcp",
+  "name": "mattermost-mcp",
   "version": "1.0.0",
   "description": "MCP server for Mattermost — channels, messages, users, DMs, files, reactions",
   "type": "module",
@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "npm run build",
+    "prepare": "npm run build",
     "start": "node dist/index.js",
     "test": "node dist/test.js"
   },
@@ -26,6 +26,10 @@
     "ai"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/runotwo/mattermost-mcp.git"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1"
   },
