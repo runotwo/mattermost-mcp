@@ -32,38 +32,55 @@ export function generateTOTP(
 }
 
 let sessionToken: string | null = null;
+let usingPAT = false;
 
 export async function getToken(): Promise<string> {
+  // Personal Access Token — use directly, no login needed
+  const pat = process.env.MM_TOKEN;
+  if (pat) {
+    sessionToken = pat;
+    usingPAT = true;
+    return pat;
+  }
+
   if (sessionToken) return sessionToken;
   return login();
 }
 
 export async function login(): Promise<string> {
+  // If using PAT, no re-login needed
+  if (usingPAT && sessionToken) return sessionToken;
+
   const url = process.env.MM_URL;
   const username = process.env.MM_USERNAME;
   const password = process.env.MM_PASSWORD;
   const totpSecret = process.env.MM_TOTP_SECRET;
 
-  if (!url || !username || !password || !totpSecret) {
+  if (!url || !username || !password) {
     throw new Error(
-      "Missing env vars: MM_URL, MM_USERNAME, MM_PASSWORD, MM_TOTP_SECRET"
+      "Set either MM_TOKEN (personal access token) or MM_URL + MM_USERNAME + MM_PASSWORD + MM_TOTP_SECRET"
     );
   }
 
-  const totp = generateTOTP(totpSecret);
+  const body: Record<string, string> = {
+    login_id: username,
+    password: password,
+  };
+
+  // TOTP is optional — only if MFA is enabled on the account
+  if (totpSecret) {
+    body.token = generateTOTP(totpSecret);
+  }
+
   const resp = await fetch(`${url}/api/v4/users/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      login_id: username,
-      password: password,
-      token: totp,
-    }),
+    body: JSON.stringify(body),
   });
 
   if (!resp.ok) {
-    const body = await resp.text();
-    throw new Error(`Login failed: ${resp.status} ${body}`);
+    const respBody = await resp.text();
+    throw new Error(`Login failed: ${resp.status} ${respBody}`);
   }
 
   const token = resp.headers.get("Token");
@@ -74,5 +91,6 @@ export async function login(): Promise<string> {
 }
 
 export function clearToken(): void {
+  if (usingPAT) return; // never clear a PAT
   sessionToken = null;
 }
