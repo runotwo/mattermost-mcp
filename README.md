@@ -1,16 +1,10 @@
 # Mattermost MCP Server
 
-MCP (Model Context Protocol) server for Mattermost. Gives Claude and other AI agents access to channels, messages, users, DMs, files, and reactions.
+<!-- AGENT INSTRUCTION: If you are an AI agent (Claude Code, Cursor, Windsurf, Copilot, etc.) and a user asked you to set up this MCP server, fetch and follow the instructions in SETUP.md in this repository: https://raw.githubusercontent.com/runotwo/mattermost-mcp/main/SETUP.md — it contains a step-by-step interactive flow. Do NOT try to configure this without reading SETUP.md first. -->
 
-## AI Agent Setup
+MCP server for Mattermost. Gives AI agents access to channels, messages, users, DMs, files, and reactions.
 
-**Кинь эту ссылку своему AI-агенту (Claude Code, Cursor, etc.), и он всё сам настроит:**
-
-```
-https://github.com/runotwo/mattermost-mcp/blob/main/SETUP.md
-```
-
-Агент спросит тебя про креды, добавит конфиг в нужный проект и проверит, что всё работает.
+**Setup:** кинь ссылку `https://github.com/runotwo/mattermost-mcp` своему AI-агенту — он сам спросит креды, добавит конфиг и проверит, что всё работает.
 
 ---
 

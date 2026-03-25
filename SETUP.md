@@ -1,9 +1,20 @@
-# Agent Setup Instructions
+# Agent Setup Instructions for Mattermost MCP
 
-> **This file is written FOR the AI agent (Claude, Cursor, etc.), not for the human.**
-> When a user shares a link to this repo, the agent should fetch and follow these instructions.
+> **This file is an instruction set FOR the AI agent, not for the human.**
+> The agent should follow these steps interactively when a user asks to set up `mattermost-mcp`.
 
-You are helping the user set up the Mattermost MCP server. Follow the steps below **exactly in order**. Do not skip steps. Ask the user questions and wait for answers before proceeding.
+## What this is
+
+`mattermost-mcp` is an MCP server that gives you (the agent) access to a Mattermost instance — channels, messages, search, DMs, files, users. It installs via `npx github:runotwo/mattermost-mcp` and requires auth credentials passed as env vars.
+
+Your job: walk the user through providing credentials, write the MCP config, test the connection, and confirm it works.
+
+## Rules
+
+- Follow the steps **exactly in order**
+- **Ask the user and wait for their answer** before moving to the next step — do not assume or skip
+- All communication with the user should be in **Russian**
+- Do not expose credentials in your visible output — when writing config files, just do it, don't print passwords back
 
 ---
 
